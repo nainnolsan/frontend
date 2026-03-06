@@ -6,10 +6,12 @@ Portafolio profesional desarrollado con **Vite + React + TypeScript**. Diseñado
 
 - ✨ Diseño moderno y responsivo
 - 🎯 Sección Hero con presentación personal
-- 💼 Dashboard de proyectos con filtros
+- 💼 Dashboard de proyectos con filtros por estado (All, Completed, In Progress, Planned)
 - 🛠️ Showcase de habilidades y tecnologías
+- 🎨 Esquema de colores azul profesional
 - ⚡ Super rápido con Vite
 - 📱 100% Mobile-friendly
+- 🔄 Filtrado dinámico de proyectos
 
 ## 🛠️ Tecnologías
 

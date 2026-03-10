@@ -1,30 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  --primary-color: #2563eb;
-  --secondary-color: #1e40af;
-  --dark-bg: #1a1a1a;
-  --light-bg: #f8f9fa;
-  --text-dark: #2c3e50;
-  --text-light: #6c757d;
-  --white: #ffffff;
-  --black: #000000;
-  --transition: all 0.3s ease;
-
-  font-family: 'Poppins', sans-serif;
-  line-height: 1.6;
-  font-weight: 400;
+@theme {
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-vercel-black: #000000;
+  --color-vercel-gray: #171717;
+  --color-vercel-light-gray: #fafafa;
+  --color-vercel-border: #eaeaea;
+  --color-vercel-accent: #0070f3;
 }
 
 html {
@@ -32,11 +15,13 @@ html {
 }
 
 body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  overflow-x: hidden;
-  color: var(--text-dark);
+  font-family: var(--font-family);
+  line-height: 1.6;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {

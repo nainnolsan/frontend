@@ -1,122 +1,4 @@
-import { useState, useEffect } from 'react';
-import './Hero.css';
-
 const Hero = () => {
-  const [line1, setLine1] = useState('');
-  const [line2, setLine2] = useState('');
-  const [showTitle, setShowTitle] = useState(false);
-  const [showCursor, setShowCursor] = useState(true);
-  const [cursorLine, setCursorLine] = useState(1);
-
-  useEffect(() => {
-    let timeoutId: number;
-    let line1Value = '';
-    let line2Value = '';
-    
-    const runAnimation = async () => {
-      // Step 1: Write "HELLO WORLD"
-      line1Value = await typeText('HELLO WORLD', setLine1, line1Value, 100);
-      await wait(800);
-      
-      // Step 2: Delete and write "Helloworld" (no space)
-      line1Value = await deleteAndType('HELLO WORLD', 'Helloworld', setLine1, 50, 100);
-      await wait(800);
-      
-      // Step 3: Go back and add space -> "Hello world"
-      line1Value = await deleteAndType('Helloworld', 'Hello world', setLine1, 50, 100);
-      await wait(800);
-      
-      // Step 4: Fix capitalization and add "!" -> "Hello World !"
-      line1Value = await deleteAndType('Hello world', 'Hello World !', setLine1, 50, 100);
-      await wait(1000);
-      
-      // Step 5: Move to line 2 and write "My name is Nain Nolasco"
-      setCursorLine(2);
-      await wait(300);
-      line2Value = await typeText('My name is ', setLine2, line2Value, 80);
-      line2Value = await typeText('My name is Nain Nolasco', setLine2, line2Value, 80);
-      await wait(800);
-      
-      // Hide cursor and show final title
-      setShowCursor(false);
-      await wait(500);
-      setShowTitle(true);
-    };
-
-    const typeText = (
-      fullText: string, 
-      setter: React.Dispatch<React.SetStateAction<string>>, 
-      currentValue: string, 
-      speed: number
-    ): Promise<string> => {
-      return new Promise((resolve) => {
-        let currentIndex = currentValue.length;
-        const interval = setInterval(() => {
-          if (currentIndex < fullText.length) {
-            const newText = fullText.substring(0, currentIndex + 1);
-            setter(newText);
-            currentIndex++;
-          } else {
-            clearInterval(interval);
-            resolve(fullText);
-          }
-        }, speed);
-      });
-    };
-
-    const deleteAndType = (
-      oldText: string, 
-      newText: string, 
-      setter: React.Dispatch<React.SetStateAction<string>>, 
-      deleteSpeed: number, 
-      typeSpeed: number
-    ): Promise<string> => {
-      return new Promise((resolve) => {
-        // Find common prefix
-        let commonLength = 0;
-        for (let i = 0; i < Math.min(oldText.length, newText.length); i++) {
-          if (oldText[i].toLowerCase() === newText[i].toLowerCase()) {
-            commonLength++;
-          } else {
-            break;
-          }
-        }
-
-        let currentLength = oldText.length;
-
-        // Delete from end to common point
-        const deleteInterval = setInterval(() => {
-          if (currentLength > commonLength) {
-            setter(oldText.substring(0, currentLength - 1));
-            currentLength--;
-          } else {
-            clearInterval(deleteInterval);
-            
-            // Now type the new part
-            let newIndex = commonLength;
-            const typeInterval = setInterval(() => {
-              if (newIndex < newText.length) {
-                setter(newText.substring(0, newIndex + 1));
-                newIndex++;
-              } else {
-                clearInterval(typeInterval);
-                resolve(newText);
-              }
-            }, typeSpeed);
-          }
-        }, deleteSpeed);
-      });
-    };
-
-    const wait = (ms: number) => new Promise<void>(resolve => {
-      timeoutId = setTimeout(resolve, ms);
-    });
-
-    runAnimation();
-
-    return () => clearTimeout(timeoutId);
-  }, []);
-
   const handleContactClick = () => {
     const contactSection = document.querySelector('#contact');
     if (contactSection) {
@@ -125,66 +7,76 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="hero">
-      <div className="hero-container">
-        <div className="hero-content">
-          <div className="text-content">
-            {!showTitle && (
-              <div className="typing-container">
-                <div className="typing-line">
-                  {line1}
-                  {cursorLine === 1 && showCursor && <span className="cursor">|</span>}
-                </div>
-                {line2 && (
-                  <div className="typing-line">
-                    {line2}
-                    {cursorLine === 2 && showCursor && <span className="cursor">|</span>}
-                  </div>
-                )}
-              </div>
-            )}
-            
-            {showTitle && (
-              <div className="title-animation">
-                <h1 className="hero-title">
-                  My name<br />
-                  is <span className="highlight">Nain Nolasco</span>
-                </h1>
-                <p className="hero-subtitle">Full Stack Developer & UI/UX Designer</p>
-                <button className="cta-button" onClick={handleContactClick}>
-                  Contact Me
-                </button>
-                
-                <div className="tags">
-                  <span className="tag tag-html">HTML</span>
-                  <span className="tag tag-css">CSS</span>
-                  <span className="tag tag-js">JavaScript</span>
-                </div>
-              </div>
-            )}
+    <section id="home" className="min-h-screen flex items-center justify-center pt-16 px-6">
+      <div className="max-w-4xl w-full mx-auto">
+        {/* Main Content */}
+        <div className="text-center space-y-8">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 border border-gray-200 rounded-full text-xs bg-white">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-black"></span>
+            </span>
+            Available for work
           </div>
-          
-          <div className="hero-image">
-            <div className="image-container">
-              <div className="image-circle">
-                <div className="profile-placeholder">
-                  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="35" r="15" fill="#666"/>
-                    <path d="M 20 80 Q 20 60 50 60 Q 80 60 80 80 Z" fill="#666"/>
-                  </svg>
-                </div>
-              </div>
-              <div className="experience-badge">
-                <div className="badge-number">5+</div>
-                <div className="badge-text">years of experience</div>
-              </div>
+
+          {/* Main Title */}
+          <div className="space-y-4">
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-black leading-tight">
+              Nain Nolasco
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto">
+              Full Stack Developer crafting elegant solutions with modern technologies
+            </p>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <button
+              onClick={handleContactClick}
+              className="px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors font-medium text-sm w-full sm:w-auto"
+            >
+              Get in touch
+            </button>
+            <a
+              href="#projects"
+              className="px-6 py-3 border border-gray-300 text-black rounded-md hover:bg-gray-50 transition-colors font-medium text-sm w-full sm:w-auto"
+            >
+              View my work
+            </a>
+          </div>
+
+          {/* Tech Stack */}
+          <div className="pt-12">
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-4">Tech Stack</p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'GraphQL', 'Tailwind'].map((tech) => (
+                <span
+                  key={tech}
+                  className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                >
+                  {tech}
+                </span>
+              ))}
             </div>
           </div>
         </div>
-        
-        <div className="scroll-indicator">
-          <span>Scroll Down</span>
-          <div className="scroll-arrow">↓</div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <svg
+            className="w-6 h-6 text-gray-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            />
+          </svg>
         </div>
       </div>
     </section>

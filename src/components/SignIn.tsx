@@ -1,8 +1,30 @@
 import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { REGISTER_MUTATION } from '../graphql/auth';
 import { useNavigation } from '../context/NavigationContext';
 
 interface SignInProps {
   onSwitchToLogin?: () => void;
+}
+
+interface RegisterData {
+  register: {
+    success: boolean;
+    message: string;
+    accessToken: string;
+    refreshToken: string;
+    user: {
+      id: string;
+      name: string;
+      email: string;
+    };
+  };
+}
+
+interface RegisterVars {
+  name: string;
+  email: string;
+  password: string;
 }
 
 const SignIn = ({ onSwitchToLogin }: SignInProps) => {
@@ -12,9 +34,27 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
     password: '',
     confirmPassword: ''
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const [error, setError] = useState('');
   const { setPage } = useNavigation();
+
+  const [register, { loading }] = useMutation<RegisterData, RegisterVars>(REGISTER_MUTATION, {
+    onCompleted: (data) => {
+      if (data.register.success) {
+        // Guardar tokens
+        localStorage.setItem('accessToken', data.register.accessToken);
+        localStorage.setItem('refreshToken', data.register.refreshToken);
+        
+        // Redirigir al home
+        setPage('home');
+      } else {
+        setError(data.register.message);
+      }
+    },
+    onError: (err) => {
+      setError(err.message || 'Error al crear la cuenta');
+    },
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -32,19 +72,21 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
     
     if (formData.password !== formData.confirmPassword) {
       setPasswordMatch(false);
+      setError('Passwords do not match');
       return;
     }
     
-    setIsLoading(true);
-    
-    // Aquí irá la lógica de registro con tu auth-service
-    setTimeout(() => {
-      console.log('Sign up:', formData);
-      setIsLoading(false);
-    }, 1000);
+    await register({
+      variables: {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      },
+    });
   };
 
   return (
@@ -70,6 +112,13 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
         {/* Form Card */}
         <div className="border border-gray-200 rounded-lg p-8 bg-white shadow-sm">
           <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Error Message */}
+            {error && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-md text-red-600 text-sm">
+                {error}
+              </div>
+            )}
+
             {/* Name Field */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-black mb-2">
@@ -165,10 +214,10 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={isLoading || !passwordMatch}
+              disabled={loading || !passwordMatch}
               className="w-full bg-black text-white py-2.5 rounded-md hover:bg-gray-800 transition-colors font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? (
+              {loading ? (
                 <span className="flex items-center justify-center">
                   <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

@@ -90,11 +90,11 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-950 px-4 py-12 transition-colors duration-300">
       {/* Back button */}
       <button
         onClick={() => setPage('home')}
-        className="fixed top-4 left-4 p-2 text-gray-600 hover:text-black transition-colors"
+        className="fixed top-4 left-4 p-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
         aria-label="Back to home"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,12 +105,12 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
       <div className="w-full max-w-md">
         {/* Logo/Title */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-black mb-2">Create your account</h1>
-          <p className="text-gray-600 text-sm">Start your journey with us</p>
+          <h1 className="text-3xl font-bold text-black dark:text-white mb-2">Create your account</h1>
+          <p className="text-gray-600 dark:text-gray-400 text-sm">Start your journey with us</p>
         </div>
 
         {/* Form Card */}
-        <div className="border border-gray-200 rounded-lg p-8 bg-white shadow-sm">
+        <div className="border border-gray-200 dark:border-gray-800 rounded-lg p-8 bg-white dark:bg-gray-900 shadow-sm transition-colors duration-300">
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Error Message */}
             {error && (
@@ -121,7 +121,7 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
 
             {/* Name Field */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-black mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-black dark:text-white mb-2">
                 Full Name
               </label>
               <input
@@ -132,13 +132,13 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
                 onChange={handleChange}
                 required
                 placeholder="Nain Nolasco"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all text-sm"
+                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent transition-all text-sm bg-white dark:bg-gray-800 text-black dark:text-white"
               />
             </div>
 
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-black mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-black dark:text-white mb-2">
                 Email
               </label>
               <input
@@ -149,13 +149,13 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
                 onChange={handleChange}
                 required
                 placeholder="you@example.com"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all text-sm"
+                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent transition-all text-sm bg-white dark:bg-gray-800 text-black dark:text-white"
               />
             </div>
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-black mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-black dark:text-white mb-2">
                 Password
               </label>
               <input
@@ -166,14 +166,14 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
                 onChange={handleChange}
                 required
                 placeholder="••••••••"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all text-sm"
+                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent transition-all text-sm bg-white dark:bg-gray-800 text-black dark:text-white"
               />
-              <p className="text-xs text-gray-500 mt-1">Must be at least 8 characters</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Must be at least 8 characters</p>
             </div>
 
             {/* Confirm Password Field */}
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-black mb-2">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-black dark:text-white mb-2">
                 Confirm Password
               </label>
               <input
@@ -184,10 +184,10 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
                 onChange={handleChange}
                 required
                 placeholder="••••••••"
-                className={`w-full px-4 py-2.5 border rounded-md focus:outline-none focus:ring-2 transition-all text-sm ${
+                className={`w-full px-4 py-2.5 border rounded-md focus:outline-none focus:ring-2 transition-all text-sm bg-white dark:bg-gray-800 text-black dark:text-white ${
                   !passwordMatch && formData.confirmPassword
                     ? 'border-red-500 focus:ring-red-500'
-                    : 'border-gray-300 focus:ring-black focus:border-transparent'
+                    : 'border-gray-300 dark:border-gray-700 focus:ring-black dark:focus:ring-white focus:border-transparent'
                 }`}
               />
               {!passwordMatch && formData.confirmPassword && (
@@ -201,13 +201,13 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
                 id="terms"
                 type="checkbox"
                 required
-                className="mt-1 h-4 w-4 rounded border-gray-300 text-black focus:ring-black"
+                className="mt-1 h-4 w-4 rounded border-gray-300 dark:border-gray-700 text-black focus:ring-black dark:text-white dark:focus:ring-white"
               />
-              <label htmlFor="terms" className="ml-2 text-xs text-gray-600">
+              <label htmlFor="terms" className="ml-2 text-xs text-gray-600 dark:text-gray-400">
                 I agree to the{' '}
-                <a href="#" className="text-black hover:underline">Terms of Service</a>
+                <a href="#" className="text-black dark:text-white hover:underline">Terms of Service</a>
                 {' '}and{' '}
-                <a href="#" className="text-black hover:underline">Privacy Policy</a>
+                <a href="#" className="text-black dark:text-white hover:underline">Privacy Policy</a>
               </label>
             </div>
 
@@ -215,7 +215,7 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
             <button
               type="submit"
               disabled={loading || !passwordMatch}
-              className="w-full bg-black text-white py-2.5 rounded-md hover:bg-gray-800 transition-colors font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-black dark:bg-white text-white dark:text-black py-2.5 rounded-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center">
@@ -234,17 +234,17 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
           {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-200"></div>
+              <div className="w-full border-t border-gray-200 dark:border-gray-800"></div>
             </div>
             <div className="relative flex justify-center text-xs">
-              <span className="bg-white px-2 text-gray-500">OR</span>
+              <span className="bg-white dark:bg-gray-900 px-2 text-gray-500 dark:text-gray-400">OR</span>
             </div>
           </div>
 
           {/* Social Signup */}
           <button
             type="button"
-            className="w-full flex items-center justify-center gap-3 px-4 py-2.5 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors text-sm font-medium"
+            className="w-full flex items-center justify-center gap-3 px-4 py-2.5 border border-gray-300 dark:border-gray-700 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-medium text-black dark:text-white"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -257,11 +257,11 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
         </div>
 
         {/* Login link */}
-        <p className="text-center text-sm text-gray-600 mt-6">
+        <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-6">
           Already have an account?{' '}
           <button
             onClick={onSwitchToLogin}
-            className="text-black font-medium hover:underline"
+            className="text-black dark:text-white font-medium hover:underline"
           >
             Sign in
           </button>

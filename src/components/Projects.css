@@ -1,6 +1,10 @@
 .projects {
   padding: 6rem 0;
-  background: var(--light-bg);
+  background: #f5f5f5;
+}
+
+html.dark .projects {
+  background: #1a1a1a;
 }
 
 .section-header {
@@ -21,10 +25,14 @@
 }
 
 .view-all {
-  color: var(--primary-color);
+  color: #000000;
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
+}
+
+html.dark .view-all {
+  color: #ffffff;
 }
 
 .view-all:hover {
@@ -41,9 +49,9 @@
 
 .filter-btn {
   padding: 0.7rem 1.8rem;
-  border: 2px solid var(--primary-color);
+  border: 2px solid #000000;
   background: transparent;
-  color: var(--primary-color);
+  color: #000000;
   border-radius: 25px;
   font-weight: 600;
   cursor: pointer;
@@ -51,17 +59,34 @@
   font-size: 0.95rem;
 }
 
+html.dark .filter-btn {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
 .filter-btn:hover {
-  background: var(--primary-color);
-  color: var(--white);
+  background: #000000;
+  color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .filter-btn:hover {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
 .filter-btn.active {
-  background: var(--primary-color);
-  color: var(--white);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  background: #000000;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .filter-btn.active {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
 .projects-grid {
@@ -71,11 +96,16 @@
 }
 
 .project-card {
-  background: var(--white);
+  background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
+}
+
+html.dark .project-card {
+  background: #0a0a0a;
+  border: 1px solid #333333;
 }
 
 .project-card:hover {

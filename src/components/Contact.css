@@ -1,15 +1,28 @@
 .contact {
   padding: 6rem 0;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-  color: var(--white);
+  background: #000000;
+  color: #ffffff;
+}
+
+html.dark .contact {
+  background: #ffffff;
+  color: #000000;
 }
 
 .contact .section-title {
-  color: var(--white);
+  color: #ffffff;
+}
+
+html.dark .contact .section-title {
+  color: #000000;
 }
 
 .contact .section-title::after {
-  background: var(--white);
+  background: #ffffff;
+}
+
+html.dark .contact .section-title::after {
+  background: #000000;
 }
 
 .contact-subtitle {
@@ -38,11 +51,21 @@
   border-radius: 15px;
   text-align: center;
   transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+html.dark .info-card {
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .info-card:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-5px);
+}
+
+html.dark .info-card:hover {
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .info-icon {
@@ -76,20 +99,35 @@
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 10px;
-  color: var(--white);
+  color: #ffffff;
   font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   transition: all 0.3s ease;
+}
+
+html.dark .form-input {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.1);
+  color: #000000;
 }
 
 .form-input::placeholder {
   color: rgba(255, 255, 255, 0.7);
 }
 
+html.dark .form-input::placeholder {
+  color: rgba(0, 0, 0, 0.7);
+}
+
 .form-input:focus {
   outline: none;
-  border-color: var(--white);
+  border-color: #ffffff;
   background: rgba(255, 255, 255, 0.15);
+}
+
+html.dark .form-input:focus {
+  border-color: #000000;
+  background: rgba(0, 0, 0, 0.15);
 }
 
 textarea.form-input {
@@ -98,8 +136,8 @@ textarea.form-input {
 }
 
 .submit-button {
-  background: var(--dark-bg);
-  color: var(--white);
+  background: #ffffff;
+  color: #000000;
   border: none;
   padding: 1rem 2.5rem;
   font-size: 1rem;
@@ -110,8 +148,17 @@ textarea.form-input {
   align-self: flex-start;
 }
 
+html.dark .submit-button {
+  background: #000000;
+  color: #ffffff;
+}
+
 .submit-button:hover {
   transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+}
+
+html.dark .submit-button:hover {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 

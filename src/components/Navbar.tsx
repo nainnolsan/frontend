@@ -28,7 +28,7 @@ const Navbar = () => {
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled 
-          ? 'bg-white/80 backdrop-blur-md border-b border-gray-200' 
+          ? 'bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800' 
           : 'bg-transparent'
       }`}
     >
@@ -38,7 +38,7 @@ const Navbar = () => {
           <a 
             href="#home" 
             onClick={(e) => handleNavClick(e, '#home')}
-            className="text-xl font-bold text-black hover:opacity-70 transition-opacity"
+            className="text-xl font-bold text-black dark:text-white hover:opacity-70 transition-opacity"
           >
             Nain.
           </a>
@@ -56,7 +56,7 @@ const Navbar = () => {
                 <a
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className="px-4 py-2 text-sm text-gray-700 hover:text-black transition-colors"
+                  className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
                 >
                   {item.label}
                 </a>
@@ -68,13 +68,13 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-3">
             <button
               onClick={() => setPage('login')}
-              className="px-4 py-2 text-sm text-gray-700 hover:text-black transition-colors"
+              className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
             >
               Sign in
             </button>
             <button
               onClick={() => setPage('signup')}
-              className="px-4 py-2 text-sm bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+              className="px-4 py-2 text-sm bg-black dark:bg-white text-white dark:text-black rounded-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
             >
               Sign up
             </button>
@@ -83,7 +83,7 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-gray-700 hover:text-black transition-colors"
+            className="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
@@ -103,11 +103,11 @@ const Navbar = () => {
       <div
         className={`md:hidden transition-all duration-200 ease-in-out ${
           isMenuOpen 
-            ? 'max-h-96 border-b border-gray-200' 
+            ? 'max-h-96 border-b border-gray-200 dark:border-gray-800' 
             : 'max-h-0 overflow-hidden'
         }`}
       >
-        <div className="bg-white px-6 py-4 space-y-1">
+        <div className="bg-white dark:bg-gray-950 px-6 py-4 space-y-1">
           {[
             { href: '#home', label: 'Home' },
             { href: '#about', label: 'About' },
@@ -119,18 +119,18 @@ const Navbar = () => {
               key={item.href}
               href={item.href}
               onClick={(e) => handleNavClick(e, item.href)}
-              className="block px-4 py-2.5 text-sm text-gray-700 hover:text-black hover:bg-gray-50 rounded-md transition-colors"
+              className="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md transition-colors"
             >
               {item.label}
             </a>
           ))}
-          <div className="pt-3 mt-3 border-t border-gray-200 space-y-2">
+          <div className="pt-3 mt-3 border-t border-gray-200 dark:border-gray-800 space-y-2">
             <button
               onClick={() => {
                 setPage('login');
                 setIsMenuOpen(false);
               }}
-              className="block w-full px-4 py-2.5 text-sm text-center text-gray-700 hover:text-black hover:bg-gray-50 rounded-md transition-colors"
+              className="block w-full px-4 py-2.5 text-sm text-center text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md transition-colors"
             >
               Sign in
             </button>
@@ -139,7 +139,7 @@ const Navbar = () => {
                 setPage('signup');
                 setIsMenuOpen(false);
               }}
-              className="block w-full px-4 py-2.5 text-sm text-center bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+              className="block w-full px-4 py-2.5 text-sm text-center bg-black dark:bg-white text-white dark:text-black rounded-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
             >
               Sign up
             </button>

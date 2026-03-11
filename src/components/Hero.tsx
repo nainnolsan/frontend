@@ -19,11 +19,11 @@ const Hero = () => {
     { name: 'Python', Icon: SiPython, color: 'group-hover:text-[#3776AB]' },
     { name: 'React', Icon: SiReact, color: 'group-hover:text-[#61DAFB]' },
     { name: 'FastAPI', Icon: SiFastapi, color: 'group-hover:text-[#009688]' },
-    { name: 'Next.js', Icon: SiNextdotjs, color: 'group-hover:text-black dark:group-hover:text-white' },
+    { name: 'Next.js', Icon: SiNextdotjs, color: 'group-hover:text-gray-900 dark:group-hover:text-white' },
     { name: 'Tailwind', Icon: SiTailwindcss, color: 'group-hover:text-[#06B6D4]' },
     { name: 'Git', Icon: SiGit, color: 'group-hover:text-[#F05032]' },
     { name: 'Postgres', Icon: SiPostgresql, color: 'group-hover:text-[#4169E1]' },
-    { name: 'Prisma', Icon: SiPrisma, color: 'group-hover:text-[#2D3748]' },
+    { name: 'Prisma', Icon: SiPrisma, color: 'group-hover:text-gray-900 dark:group-hover:text-white' },
     { name: 'MongoDB', Icon: SiMongodb, color: 'group-hover:text-[#47A248]' },
     { name: 'GCP', Icon: SiGooglecloud, color: 'group-hover:text-[#4285F4]' },
     { name: 'Claude', Icon: SiGooglecloud, color: 'group-hover:text-[#D97757]' },
@@ -123,7 +123,7 @@ const Hero = () => {
                   className="group flex flex-col items-center justify-center gap-2 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-900 transition-all"
                 >
                   {/* Icono */}
-                  <Icon className={`w-8 h-8 text-black dark:text-white transition-colors ${tech.color}`} />
+                  <Icon className={`w-8 h-8 text-gray-700 dark:text-white transition-colors ${tech.color}`} />
                   {/* Nombre */}
                   <p className="text-[10px] font-medium text-gray-700 dark:text-gray-300 text-center">
                     {tech.name}

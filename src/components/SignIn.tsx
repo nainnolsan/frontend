@@ -90,11 +90,11 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-950 px-4 py-12 transition-colors duration-300">
+    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-black px-4 py-12 transition-colors">
       {/* Back button */}
       <button
         onClick={() => setPage('home')}
-        className="fixed top-4 left-4 p-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+        className="fixed top-4 left-4 p-2 text-black dark:text-white hover:opacity-70 transition-opacity"
         aria-label="Back to home"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -110,7 +110,7 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
         </div>
 
         {/* Form Card */}
-        <div className="border border-gray-200 dark:border-gray-800 rounded-lg p-8 bg-white dark:bg-gray-900 shadow-sm transition-colors duration-300">
+        <div className="border border-gray-300 dark:border-gray-700 rounded-lg p-8 bg-white dark:bg-black shadow-sm transition-colors">
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Error Message */}
             {error && (

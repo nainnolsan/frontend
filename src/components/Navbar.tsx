@@ -1,149 +1,50 @@
-import { useState, useEffect } from 'react';
 import { useNavigation } from '../context/NavigationContext';
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const { setPage } = useNavigation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setIsMenuOpen(false);
-    }
-  };
-
+  
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
-        isScrolled 
-          ? 'bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800' 
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <nav className="sticky top-0 z-40 w-full bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors">
+      <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          
           {/* Logo */}
-          <a 
-            href="#home" 
-            onClick={(e) => handleNavClick(e, '#home')}
-            className="text-xl font-bold text-black dark:text-white hover:opacity-70 transition-opacity"
-          >
+          <a href="#" className="text-xl font-bold text-black dark:text-white hover:opacity-70 transition-opacity">
             Nain.
           </a>
 
-          {/* Desktop Menu */}
-          <ul className="hidden md:flex items-center space-x-1">
-            {[
-              { href: '#home', label: 'Home' },
-              { href: '#about', label: 'About' },
-              { href: '#projects', label: 'Projects' },
-              { href: '#skills', label: 'Skills' },
-              { href: '#contact', label: 'Contact' },
-            ].map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          {/* Links - Centro */}
+          <div className="flex items-center gap-6">
+            <a 
+              href="#projects" 
+              className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+            >
+              Projects
+            </a>
+            <a 
+              href="#contact" 
+              className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+            >
+              Contact
+            </a>
+          </div>
 
-          {/* Auth Buttons (Desktop) */}
-          <div className="hidden md:flex items-center space-x-3">
+          {/* Botones Sign in / Sign up */}
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setPage('login')}
-              className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
+              className="px-4 py-2 text-sm text-black dark:text-white hover:opacity-70 transition-opacity"
             >
               Sign in
             </button>
             <button
               onClick={() => setPage('signup')}
-              className="px-4 py-2 text-sm bg-black dark:bg-white text-white dark:text-black rounded-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
+              className="px-4 py-2 text-sm bg-black dark:bg-white text-white dark:text-black rounded-lg hover:opacity-80 transition-opacity"
             >
               Sign up
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden transition-all duration-200 ease-in-out ${
-          isMenuOpen 
-            ? 'max-h-96 border-b border-gray-200 dark:border-gray-800' 
-            : 'max-h-0 overflow-hidden'
-        }`}
-      >
-        <div className="bg-white dark:bg-gray-950 px-6 py-4 space-y-1">
-          {[
-            { href: '#home', label: 'Home' },
-            { href: '#about', label: 'About' },
-            { href: '#projects', label: 'Projects' },
-            { href: '#skills', label: 'Skills' },
-            { href: '#contact', label: 'Contact' },
-          ].map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={(e) => handleNavClick(e, item.href)}
-              className="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md transition-colors"
-            >
-              {item.label}
-            </a>
-          ))}
-          <div className="pt-3 mt-3 border-t border-gray-200 dark:border-gray-800 space-y-2">
-            <button
-              onClick={() => {
-                setPage('login');
-                setIsMenuOpen(false);
-              }}
-              className="block w-full px-4 py-2.5 text-sm text-center text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md transition-colors"
-            >
-              Sign in
-            </button>
-            <button
-              onClick={() => {
-                setPage('signup');
-                setIsMenuOpen(false);
-              }}
-              className="block w-full px-4 py-2.5 text-sm text-center bg-black dark:bg-white text-white dark:text-black rounded-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
-            >
-              Sign up
-            </button>
-          </div>
         </div>
       </div>
     </nav>

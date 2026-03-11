@@ -1,148 +1,108 @@
-import { useState } from 'react';
-import './Projects.css';
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  technologies: string[];
-  icon: string;
-  gradient: string;
-  status: 'Completed' | 'In Progress' | 'Planned';
-}
-
 const Projects = () => {
-  const [filter, setFilter] = useState<string>('All');
-
-  const projects: Project[] = [
+  const projects = [
     {
-      id: 1,
-      title: "E-Commerce App",
-      description: "A complete e-commerce platform with shopping cart, secure payments, and admin dashboard.",
-      technologies: ["React", "Node.js", "MongoDB"],
-      icon: "🛒",
-      gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-      status: "Completed"
+      title: "E-commerce Platform",
+      description: "Full-stack e-commerce solution with React, Node.js, and PostgreSQL. Features include user authentication, product management, and payment integration.",
+      tags: ["React", "Node.js", "PostgreSQL", "Stripe"],
+      link: "#",
+      featured: true
     },
     {
-      id: 2,
-      title: "Task Manager",
-      description: "Task management application with real-time collaboration features and cloud synchronization.",
-      technologies: ["Vue.js", "Firebase", "Tailwind"],
-      icon: "📱",
-      gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-      status: "In Progress"
+      title: "Task Management App",
+      description: "Real-time collaborative task manager built with React and GraphQL. Supports team workspaces and live updates.",
+      tags: ["React", "GraphQL", "WebSocket"],
+      link: "#",
+      featured: false
     },
     {
-      id: 3,
-      title: "Portfolio Website",
-      description: "Modern and responsive portfolio website with smooth animations and minimalist design.",
-      technologies: ["HTML", "CSS", "JavaScript"],
-      icon: "✏️",
-      gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-      status: "Completed"
+      title: "Weather Dashboard",
+      description: "Beautiful weather application with location-based forecasts and interactive maps using modern APIs.",
+      tags: ["TypeScript", "React", "APIs"],
+      link: "#",
+      featured: false
     },
-    {
-      id: 4,
-      title: "Analytics Dashboard",
-      description: "Analytics panel with interactive visualizations and real-time reports for decision making.",
-      technologies: ["Angular", "D3.js", "Python"],
-      icon: "📊",
-      gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-      status: "In Progress"
-    },
-    {
-      id: 5,
-      title: "Gaming Platform",
-      description: "Multiplayer gaming platform with live chat, rankings, and achievement system.",
-      technologies: ["WebSocket", "Express", "Redis"],
-      icon: "🎮",
-      gradient: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)",
-      status: "Planned"
-    },
-    {
-      id: 6,
-      title: "Health Tracker",
-      description: "Health tracking application with wearable integration and personalized recommendations.",
-      technologies: ["React Native", "GraphQL", "AWS"],
-      icon: "🏥",
-      gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-      status: "Planned"
-    }
   ];
 
-  const categories = ['All', 'Completed', 'In Progress', 'Planned'];
-
-  const filteredProjects = filter === 'All' 
-    ? projects 
-    : projects.filter(project => project.status === filter);
-
-  const getStatusClass = (status: string) => {
-    switch(status) {
-      case 'Completed': return 'status-completed';
-      case 'In Progress': return 'status-progress';
-      case 'Planned': return 'status-planned';
-      default: return '';
-    }
-  };
-
   return (
-    <section id="projects" className="projects">
-      <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">Latest Projects</h2>
-          <a href="#" className="view-all">View All →</a>
+    <section id="projects" className="py-20 px-6 bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 transition-colors">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* Header */}
+        <div className="text-center mb-16">
+          <p className="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wide mb-3">PORTFOLIO</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-white mb-4">
+            Featured Projects
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            A selection of projects I've worked on, showcasing my skills and expertise
+          </p>
         </div>
 
-        <div className="projects-filters">
-          {categories.map((category) => (
-            <button
-              key={category}
-              className={`filter-btn ${filter === category ? 'active' : ''}`}
-              onClick={() => setFilter(category)}
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project, index) => (
+            <a
+              key={index}
+              href={project.link}
+              className="group block"
             >
-              {category}
-            </button>
-          ))}
-        </div>
-        
-        <div className="projects-grid">
-          {filteredProjects.map((project) => (
-            <div key={project.id} className="project-card">
-              <div className="project-image">
-                <div 
-                  className="project-placeholder" 
-                  style={{ background: project.gradient }}
-                >
-                  <span className="project-icon">{project.icon}</span>
-                </div>
-              </div>
-              <div className="project-content">
-                <div className="project-header">
-                  <div className="project-number">
-                    {project.id.toString().padStart(2, '0')}
+              <div className="h-full p-6 bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 rounded-xl hover:border-gray-400 dark:hover:border-gray-600 transition-all hover:shadow-xl">
+                
+                {/* Featured badge */}
+                {project.featured && (
+                  <div className="inline-flex items-center gap-1 px-3 py-1 bg-black dark:bg-white text-white dark:text-black rounded-full text-xs font-medium mb-4">
+                    ⭐ Featured
                   </div>
-                  <span className={`project-status ${getStatusClass(project.status)}`}>
-                    {project.status}
-                  </span>
-                </div>
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-description">{project.description}</p>
-                <div className="project-tags">
-                  {project.technologies.map((tech, idx) => (
-                    <span key={idx} className="project-tag">{tech}</span>
+                )}
+
+                {/* Title */}
+                <h3 className="text-xl font-bold text-black dark:text-white mb-3 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
+                  {project.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">
+                  {project.description}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 rounded-md text-xs font-medium"
+                    >
+                      {tag}
+                    </span>
                   ))}
                 </div>
+
+                {/* Arrow indicator */}
+                <div className="mt-4 flex items-center gap-2 text-sm font-medium text-black dark:text-white group-hover:gap-3 transition-all">
+                  View Project
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
-        {filteredProjects.length === 0 && (
-          <div className="no-projects">
-            <p>No projects found in this category</p>
-          </div>
-        )}
+        {/* Ver más */}
+        <div className="text-center mt-12">
+          <a
+            href="#"
+            className="inline-flex items-center gap-2 px-6 py-3 border-2 border-black dark:border-white text-black dark:text-white rounded-lg hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors font-medium"
+          >
+            View All Projects
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
       </div>
     </section>
   );

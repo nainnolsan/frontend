@@ -62,7 +62,7 @@ const Hero = () => {
             
             {/* Descripción */}
             <p className="text-sm text-gray-600 dark:text-gray-400 text-center lg:text-left">
-              Full Stack Developer
+              AI-Enhanced Full Stack Developer
             </p>
 
             {/* Redes sociales */}

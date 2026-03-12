@@ -11,6 +11,7 @@ import {
   SiMongodb,
   SiGooglecloud
 } from 'react-icons/si';
+import { BsClaude } from 'react-icons/bs';
 import type { IconType } from 'react-icons';
 
 const Hero = () => {
@@ -26,7 +27,7 @@ const Hero = () => {
     { name: 'Prisma', Icon: SiPrisma, color: 'group-hover:text-gray-900 dark:group-hover:text-white' },
     { name: 'MongoDB', Icon: SiMongodb, color: 'group-hover:text-[#47A248]' },
     { name: 'GCP', Icon: SiGooglecloud, color: 'group-hover:text-[#4285F4]' },
-    { name: 'Claude', Icon: SiGooglecloud, color: 'group-hover:text-[#D97757]' },
+    { name: 'Claude', Icon: BsClaude, color: 'group-hover:text-[#D97757]' },
   ];
 
   return (

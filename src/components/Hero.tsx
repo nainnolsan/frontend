@@ -35,7 +35,7 @@ const Hero = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
         {/* Columna Izquierda - Perfil */}
-        <div className="flex flex-row gap-6 items-center">
+        <div className="flex flex-col lg:flex-row gap-6 items-center lg:items-center justify-center lg:justify-start">
           
           {/* Imagen circular */}
           <img 
@@ -45,7 +45,7 @@ const Hero = () => {
           />
 
           {/* Contenido a la derecha de la imagen */}
-          <div className="flex flex-col justify-center space-y-3">
+          <div className="flex flex-col justify-center items-center lg:items-start space-y-3">
             
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 border border-gray-300 dark:border-gray-700 rounded-full text-xs w-fit">
@@ -57,12 +57,12 @@ const Hero = () => {
             </div>
 
             {/* Nombre */}
-            <h1 className="text-3xl md:text-4xl font-bold text-black dark:text-white">
+            <h1 className="text-3xl md:text-4xl font-bold text-black dark:text-white text-center lg:text-left">
               Nain Nolasco
             </h1>
             
             {/* Descripción */}
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-600 dark:text-gray-400 text-center lg:text-left">
               Full Stack Developer
             </p>
 
@@ -106,7 +106,7 @@ const Hero = () => {
         <div className="flex flex-col justify-center">
           
           {/* Header */}
-          <div className="mb-6">
+          <div className="mb-6 text-center lg:text-left">
             <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">TECH STACK</p>
             <h2 className="text-2xl font-bold text-black dark:text-white">
               My Technologies
@@ -114,7 +114,7 @@ const Hero = () => {
           </div>
 
           {/* Tech grid */}
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
             {technologies.map((tech) => {
               const Icon = tech.Icon;
               return (

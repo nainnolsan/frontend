@@ -11,11 +11,15 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const [userPreference, setUserPreference] = useState<boolean>(false);
   const [theme, setTheme] = useState<Theme>(() => {
     // Inicializar desde localStorage o sistema
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme') as Theme | null;
-      if (saved) return saved;
+      const hasPreference = localStorage.getItem('hasUserPreference') === 'true';
+      if (saved && hasPreference) {
+        return saved;
+      }
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
     return 'light';
@@ -25,16 +29,37 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     const root = document.documentElement;
     root.classList.remove('light', 'dark');
     root.classList.add(theme);
-    localStorage.setItem('theme', theme);
-    console.log('Tema aplicado:', theme, 'Clases en html:', root.classList.toString());
-  }, [theme]);
+    // Solo guardar si el usuario ha elegido manualmente
+    if (userPreference) {
+      localStorage.setItem('theme', theme);
+      localStorage.setItem('hasUserPreference', 'true');
+    }
+  }, [theme, userPreference]);
+
+  // Escuchar cambios del tema del sistema en tiempo real
+  useEffect(() => {
+    const hasPreference = localStorage.getItem('hasUserPreference') === 'true';
+    setUserPreference(hasPreference);
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      // Solo cambiar si el usuario NO ha elegido manualmente un tema
+      if (!hasPreference) {
+        setTheme(e.matches ? 'dark' : 'light');
+      }
+    };
+
+    // Agregar listener para cambios
+    mediaQuery.addEventListener('change', handleChange);
+
+    // Limpiar listener al desmontar
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   const toggleTheme = () => {
-    setTheme(prev => {
-      const newTheme = prev === 'light' ? 'dark' : 'light';
-      console.log('Cambiando tema de', prev, 'a', newTheme);
-      return newTheme;
-    });
+    setUserPreference(true);
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
   return (

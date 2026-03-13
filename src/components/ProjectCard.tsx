@@ -37,7 +37,7 @@ const ProjectCard = ({ title, description, tags, featured }: ProjectCardProps) =
       {/* Featured badge */}
       {featured && (
         <div className="inline-flex items-center gap-1 px-2 py-1 bg-black dark:bg-white text-white dark:text-black rounded-full text-xs font-medium mb-3 self-start">
-          ⭐ Featured
+          Featured
         </div>
       )}
 

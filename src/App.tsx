@@ -13,12 +13,11 @@ function AppContent() {
 
   const projects = [
     {
-      title: "E-commerce Platform",
-      description: "Full-stack e-commerce solution with React, Node.js, and PostgreSQL. Features include user authentication, product management, and payment integration.",
-      tags: ["React", "Node.js", "PostgreSQL", "Stripe"],
+      title: "Auth Service REST API",
+      description: "Authentication microservice with secure login, refresh tokens, profile endpoint, and production-ready PostgreSQL persistence.",
+      tags: ["Node.js", "Express", "TypeScript", "PostgreSQL", "TypeORM", "JWT", "Bcrypt", "Docker"],
       featured: true,
-      docUrl: "#",
-      projectUrl: "#"
+      projectUrl: "https://nain.mintlify.app/apis/auth-service/overview"
     },
     {
       title: "Task Management App",

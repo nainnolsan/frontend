@@ -1,5 +1,6 @@
 import type { IconType } from 'react-icons';
 import {
+  SiDocker,
   SiGraphql,
   SiNodedotjs,
   SiPostgresql,
@@ -10,7 +11,7 @@ import {
   SiTypescript,
 } from 'react-icons/si';
 import { TbApi } from 'react-icons/tb';
-import { FiExternalLink, FiFileText } from 'react-icons/fi';
+import { FiDatabase, FiExternalLink, FiFileText, FiKey, FiLock, FiServer } from 'react-icons/fi';
 
 interface ProjectCardProps {
   title: string;
@@ -25,7 +26,12 @@ const ProjectCard = ({ title, description, tags, featured, docUrl, projectUrl }:
   const techIcons: Record<string, { Icon: IconType; color: string }> = {
     React: { Icon: SiReact, color: 'hover:text-[#61DAFB]' },
     'Node.js': { Icon: SiNodedotjs, color: 'hover:text-[#5FA04E]' },
+    Express: { Icon: FiServer, color: 'hover:text-gray-900 dark:hover:text-white' },
     PostgreSQL: { Icon: SiPostgresql, color: 'hover:text-[#4169E1]' },
+    TypeORM: { Icon: FiDatabase, color: 'hover:text-[#EF4444]' },
+    JWT: { Icon: FiKey, color: 'hover:text-[#F59E0B]' },
+    Bcrypt: { Icon: FiLock, color: 'hover:text-[#14B8A6]' },
+    Docker: { Icon: SiDocker, color: 'hover:text-[#2496ED]' },
     Stripe: { Icon: SiStripe, color: 'hover:text-[#635BFF]' },
     GraphQL: { Icon: SiGraphql, color: 'hover:text-[#E10098]' },
     WebSocket: { Icon: SiSocketdotio, color: 'hover:text-gray-900 dark:hover:text-white' },
@@ -56,7 +62,7 @@ const ProjectCard = ({ title, description, tags, featured, docUrl, projectUrl }:
 
         {/* Tech icons */}
         <div className="flex flex-wrap items-center gap-3">
-          {tags.slice(0, 3).map((tag) => {
+          {tags.map((tag) => {
             const tech = techIcons[tag];
 
             if (!tech) {

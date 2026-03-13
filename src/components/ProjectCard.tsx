@@ -1,3 +1,16 @@
+import type { IconType } from 'react-icons';
+import {
+  SiGraphql,
+  SiNodedotjs,
+  SiPostgresql,
+  SiReact,
+  SiSocketdotio,
+  SiStripe,
+  SiTailwindcss,
+  SiTypescript,
+} from 'react-icons/si';
+import { TbApi } from 'react-icons/tb';
+
 interface ProjectCardProps {
   title: string;
   description: string;
@@ -6,6 +19,18 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ title, description, tags, featured }: ProjectCardProps) => {
+  const techIcons: Record<string, { Icon: IconType; color: string }> = {
+    React: { Icon: SiReact, color: 'hover:text-[#61DAFB]' },
+    'Node.js': { Icon: SiNodedotjs, color: 'hover:text-[#5FA04E]' },
+    PostgreSQL: { Icon: SiPostgresql, color: 'hover:text-[#4169E1]' },
+    Stripe: { Icon: SiStripe, color: 'hover:text-[#635BFF]' },
+    GraphQL: { Icon: SiGraphql, color: 'hover:text-[#E10098]' },
+    WebSocket: { Icon: SiSocketdotio, color: 'hover:text-gray-900 dark:hover:text-white' },
+    TypeScript: { Icon: SiTypescript, color: 'hover:text-[#3178C6]' },
+    Tailwind: { Icon: SiTailwindcss, color: 'hover:text-[#06B6D4]' },
+    APIs: { Icon: TbApi, color: 'hover:text-[#22C55E]' },
+  };
+
   return (
     <div className="h-full p-6 bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-800 rounded-2xl hover:border-gray-400 dark:hover:border-gray-600 transition-all flex flex-col">
       
@@ -26,16 +51,28 @@ const ProjectCard = ({ title, description, tags, featured }: ProjectCardProps) =
           {description}
         </p>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2">
-          {tags.slice(0, 3).map((tag) => (
-            <span
-              key={tag}
-              className="px-2 py-1 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 rounded-md text-xs"
-            >
-              {tag}
-            </span>
-          ))}
+        {/* Tech icons */}
+        <div className="flex flex-wrap items-center gap-3">
+          {tags.slice(0, 3).map((tag) => {
+            const tech = techIcons[tag];
+
+            if (!tech) {
+              return null;
+            }
+
+            const Icon = tech.Icon;
+
+            return (
+              <span
+                key={tag}
+                title={tag}
+                aria-label={tag}
+                className={`text-lg text-gray-500 dark:text-gray-400 transition-colors ${tech.color}`}
+              >
+                <Icon />
+              </span>
+            );
+          })}
         </div>
       </div>
 

@@ -1,4 +1,27 @@
+import type { IconType } from 'react-icons';
+import {
+  SiGraphql,
+  SiNodedotjs,
+  SiPostgresql,
+  SiReact,
+  SiSocketdotio,
+  SiStripe,
+  SiTypescript,
+} from 'react-icons/si';
+import { TbApi } from 'react-icons/tb';
+
 const Projects = () => {
+  const techIcons: Record<string, { Icon: IconType; color: string }> = {
+    React: { Icon: SiReact, color: 'hover:text-[#61DAFB]' },
+    'Node.js': { Icon: SiNodedotjs, color: 'hover:text-[#5FA04E]' },
+    PostgreSQL: { Icon: SiPostgresql, color: 'hover:text-[#4169E1]' },
+    Stripe: { Icon: SiStripe, color: 'hover:text-[#635BFF]' },
+    GraphQL: { Icon: SiGraphql, color: 'hover:text-[#E10098]' },
+    WebSocket: { Icon: SiSocketdotio, color: 'hover:text-gray-900 dark:hover:text-white' },
+    TypeScript: { Icon: SiTypescript, color: 'hover:text-[#3178C6]' },
+    APIs: { Icon: TbApi, color: 'hover:text-[#22C55E]' },
+  };
+
   const projects = [
     {
       title: "E-commerce Platform",
@@ -65,16 +88,28 @@ const Projects = () => {
                   {project.description}
                 </p>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 rounded-md text-xs font-medium"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                {/* Tech icons */}
+                <div className="flex flex-wrap items-center gap-3">
+                  {project.tags.map((tag) => {
+                    const tech = techIcons[tag];
+
+                    if (!tech) {
+                      return null;
+                    }
+
+                    const Icon = tech.Icon;
+
+                    return (
+                      <span
+                        key={tag}
+                        title={tag}
+                        aria-label={tag}
+                        className={`text-lg text-gray-500 dark:text-gray-400 transition-colors ${tech.color}`}
+                      >
+                        <Icon />
+                      </span>
+                    );
+                  })}
                 </div>
 
                 {/* Arrow indicator */}

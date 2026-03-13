@@ -14,7 +14,7 @@ const Footer = () => {
           {/* Social Links con iconos */}
           <div className="flex items-center gap-4">
             <a 
-              href="https://github.com/yourusername" 
+              href="https://github.com/nainnolsan" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-black dark:text-white hover:opacity-60 transition-opacity"
@@ -25,7 +25,7 @@ const Footer = () => {
               </svg>
             </a>
             <a 
-              href="https://linkedin.com/in/yourusername" 
+              href="https://www.linkedin.com/in/nain-nolasco/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-black dark:text-white hover:opacity-60 transition-opacity"
@@ -36,7 +36,7 @@ const Footer = () => {
               </svg>
             </a>
             <a 
-              href="https://facebook.com/yourusername" 
+              href="https://www.facebook.com/nainisai.nolascosantander.9" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-black dark:text-white hover:opacity-60 transition-opacity"

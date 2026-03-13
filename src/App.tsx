@@ -11,6 +11,37 @@ import ThemeToggle from './components/ThemeToggle'
 function AppContent() {
   const { currentPage, setPage } = useNavigation();
 
+  const projects = [
+    {
+      title: "E-commerce Platform",
+      description: "Full-stack e-commerce solution with React, Node.js, and PostgreSQL. Features include user authentication, product management, and payment integration.",
+      tags: ["React", "Node.js", "PostgreSQL", "Stripe"],
+      featured: true,
+      docUrl: "#",
+      projectUrl: "#"
+    },
+    {
+      title: "Task Management App",
+      description: "Real-time collaborative task manager built with React and GraphQL. Supports team workspaces and live updates.",
+      tags: ["React", "GraphQL", "WebSocket"],
+      docUrl: "#",
+      projectUrl: "#"
+    },
+    {
+      title: "Weather Dashboard",
+      description: "Beautiful weather application with location-based forecasts and interactive maps using modern APIs.",
+      tags: ["TypeScript", "React", "APIs"],
+      docUrl: "#",
+      projectUrl: "#"
+    },
+    {
+      title: "Portfolio Website",
+      description: "Modern portfolio with dark mode, smooth animations and responsive design built with React and Tailwind CSS.",
+      tags: ["React", "Tailwind", "TypeScript"],
+      projectUrl: "#"
+    },
+  ];
+
   // Simple navigation handling
   if (currentPage === 'login') {
     return (
@@ -30,29 +61,31 @@ function AppContent() {
     );
   }
 
-  const projects = [
-    {
-      title: "E-commerce Platform",
-      description: "Full-stack e-commerce solution with React, Node.js, and PostgreSQL. Features include user authentication, product management, and payment integration.",
-      tags: ["React", "Node.js", "PostgreSQL", "Stripe"],
-      featured: true
-    },
-    {
-      title: "Task Management App",
-      description: "Real-time collaborative task manager built with React and GraphQL. Supports team workspaces and live updates.",
-      tags: ["React", "GraphQL", "WebSocket"],
-    },
-    {
-      title: "Weather Dashboard",
-      description: "Beautiful weather application with location-based forecasts and interactive maps using modern APIs.",
-      tags: ["TypeScript", "React", "APIs"],
-    },
-    {
-      title: "Portfolio Website",
-      description: "Modern portfolio with dark mode, smooth animations and responsive design built with React and Tailwind CSS.",
-      tags: ["React", "Tailwind", "TypeScript"],
-    },
-  ];
+  if (currentPage === 'projects') {
+    return (
+      <div className="min-h-screen text-black dark:text-white transition-colors">
+        <Navbar />
+
+        <section className="bg-white dark:bg-black transition-colors py-14 md:py-16">
+          <div className="max-w-7xl mx-auto px-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-3">My Projects</h1>
+            <p className="text-gray-600 dark:text-gray-400 max-w-3xl mb-10">
+              A curated list of projects with direct links to documentation and live implementations.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {projects.map((project, index) => (
+                <ProjectCard key={index} {...project} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <Footer />
+        <ThemeToggle />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen text-black dark:text-white transition-colors">

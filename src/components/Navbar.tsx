@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigation } from '../context/NavigationContext';
 
 const Navbar = () => {
-  const { setPage } = useNavigation();
+  const { currentPage, setPage } = useNavigation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   return (
@@ -11,18 +11,25 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           
           {/* Logo */}
-          <a href="#" className="text-xl font-bold text-black dark:text-white hover:opacity-70 transition-opacity">
+          <button
+            onClick={() => setPage('home')}
+            className="text-xl font-bold text-black dark:text-white hover:opacity-70 transition-opacity"
+          >
             Nain.
-          </a>
+          </button>
 
           {/* Links - Desktop */}
           <div className="hidden md:flex items-center gap-6">
-            <a 
-              href="#projects" 
-              className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+            <button
+              onClick={() => setPage('projects')}
+              className={`text-sm transition-colors ${
+                currentPage === 'projects'
+                  ? 'text-black dark:text-white'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white'
+              }`}
             >
               Projects
-            </a>
+            </button>
             <a 
               href="#contact" 
               className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
@@ -78,13 +85,15 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="absolute top-full left-0 right-0 md:hidden mt-0 bg-white/70 dark:bg-black/70 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 shadow-2xl z-40">
             <div className="px-6 py-4 space-y-3">
-            <a 
-              href="#projects" 
-              onClick={() => setIsMenuOpen(false)}
+            <button
+              onClick={() => {
+                setPage('projects');
+                setIsMenuOpen(false);
+              }}
               className="block px-4 py-2 text-sm text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-colors"
             >
               Projects
-            </a>
+            </button>
             <a 
               href="#contact" 
               onClick={() => setIsMenuOpen(false)}

@@ -10,15 +10,18 @@ import {
   SiTypescript,
 } from 'react-icons/si';
 import { TbApi } from 'react-icons/tb';
+import { FiExternalLink, FiFileText } from 'react-icons/fi';
 
 interface ProjectCardProps {
   title: string;
   description: string;
   tags: string[];
   featured?: boolean;
+  docUrl?: string;
+  projectUrl?: string;
 }
 
-const ProjectCard = ({ title, description, tags, featured }: ProjectCardProps) => {
+const ProjectCard = ({ title, description, tags, featured, docUrl, projectUrl }: ProjectCardProps) => {
   const techIcons: Record<string, { Icon: IconType; color: string }> = {
     React: { Icon: SiReact, color: 'hover:text-[#61DAFB]' },
     'Node.js': { Icon: SiNodedotjs, color: 'hover:text-[#5FA04E]' },
@@ -74,6 +77,34 @@ const ProjectCard = ({ title, description, tags, featured }: ProjectCardProps) =
             );
           })}
         </div>
+
+        {/* Actions */}
+        {(docUrl || projectUrl) && (
+          <div className="mt-5 flex items-center justify-end gap-3">
+            {docUrl && (
+              <a
+                href={docUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-sm font-medium text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
+              >
+                Read
+                <FiFileText className="w-4 h-4" />
+              </a>
+            )}
+            {projectUrl && (
+              <a
+                href={projectUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-sm font-medium text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
+              >
+                View
+                <FiExternalLink className="w-4 h-4" />
+              </a>
+            )}
+          </div>
+        )}
       </div>
 
     </div>

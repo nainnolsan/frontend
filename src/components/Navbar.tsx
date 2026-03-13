@@ -81,14 +81,14 @@ const Navbar = () => {
         {/* Overlay con blur para menú mobile */}
         {isMenuOpen && (
           <div 
-            className="fixed inset-0 bg-white/30 dark:bg-black/40 backdrop-blur-2xl z-30"
+            className="fixed inset-0 bg-black/20 dark:bg-black/50 z-30"
             onClick={() => setIsMenuOpen(false)}
           />
         )}
 
         {/* Menú Mobile */}
         {isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 md:hidden mt-0 bg-white/70 dark:bg-black/70 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 shadow-2xl z-40">
+          <div className="absolute top-full left-0 right-0 md:hidden mt-0 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800 shadow-2xl z-40">
             <div className="px-6 py-4 space-y-3">
             {currentPage === 'projects' ? (
               <button

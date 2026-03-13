@@ -42,19 +42,31 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     setUserPreference(hasPreference);
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    const handleChange = (e: MediaQueryListEvent) => {
-      // Solo cambiar si el usuario NO ha elegido manualmente un tema
-      if (!hasPreference) {
-        setTheme(e.matches ? 'dark' : 'light');
+
+    const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      // Leer siempre desde localStorage para evitar closure stale
+      const userHasChosen = localStorage.getItem('hasUserPreference') === 'true';
+      if (!userHasChosen) {
+        setTheme('matches' in e && e.matches ? 'dark' : 'light');
       }
     };
 
-    // Agregar listener para cambios
-    mediaQuery.addEventListener('change', handleChange);
+    // Fallback para iOS Safari < 14 que no soporta addEventListener en MediaQueryList
+    try {
+      mediaQuery.addEventListener('change', handleChange as (e: MediaQueryListEvent) => void);
+    } catch {
+      // deprecated API, necesario para Safari < 14
+      mediaQuery.addListener(handleChange);
+    }
 
-    // Limpiar listener al desmontar
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    return () => {
+      try {
+        mediaQuery.removeEventListener('change', handleChange as (e: MediaQueryListEvent) => void);
+      } catch {
+        // deprecated API
+        mediaQuery.removeListener(handleChange);
+      }
+    };
   }, []);
 
   const toggleTheme = () => {

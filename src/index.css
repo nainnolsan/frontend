@@ -22,3 +22,29 @@ body {
 .dark {
   color-scheme: dark;
 }
+
+@keyframes tech-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.tech-marquee-track {
+  display: inline-flex;
+  width: max-content;
+  min-width: 200%;
+  animation: tech-marquee 24s linear infinite;
+}
+
+.tech-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-marquee-track {
+    animation: none;
+  }
+}

@@ -31,6 +31,7 @@ interface ProjectItem {
 
 function AppContent() {
   const { currentPage, setPage } = useNavigation();
+  const authRedirect = new URLSearchParams(window.location.search).get('redirect');
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
   const [isTechPickerOpen, setIsTechPickerOpen] = useState(false);
   const [draftTechSelection, setDraftTechSelection] = useState<string[]>([]);
@@ -454,7 +455,7 @@ function AppContent() {
   if (currentPage === 'login') {
     return (
       <>
-        <Login onSwitchToSignup={() => setPage('signup')} />
+        <Login onSwitchToSignup={() => setPage('signup')} redirectTo={authRedirect} />
         <ThemeToggle />
       </>
     );
@@ -463,7 +464,7 @@ function AppContent() {
   if (currentPage === 'signup') {
     return (
       <>
-        <SignIn onSwitchToLogin={() => setPage('login')} />
+        <SignIn onSwitchToLogin={() => setPage('login')} redirectTo={authRedirect} />
         <ThemeToggle />
       </>
     );

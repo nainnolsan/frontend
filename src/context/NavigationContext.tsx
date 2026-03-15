@@ -22,10 +22,20 @@ interface NavigationProviderProps {
   children: ReactNode;
 }
 
+const getInitialPage = (): Page => {
+  const authMode = new URLSearchParams(window.location.search).get('auth');
+  if (authMode === 'login' || authMode === 'signup') {
+    return authMode;
+  }
+  return 'home';
+};
+
 export const NavigationProvider = ({ children }: NavigationProviderProps) => {
-  const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [currentPage, setCurrentPage] = useState<Page>(getInitialPage);
 
   const setPage = (page: Page) => {
+    const cleanUrl = `${window.location.pathname}${window.location.hash}`;
+    window.history.replaceState({}, '', cleanUrl);
     setCurrentPage(page);
     window.scrollTo(0, 0);
   };

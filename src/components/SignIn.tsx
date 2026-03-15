@@ -5,6 +5,7 @@ import { useNavigation } from '../context/NavigationContext';
 
 interface SignInProps {
   onSwitchToLogin?: () => void;
+  redirectTo?: string | null;
 }
 
 interface RegisterData {
@@ -27,7 +28,7 @@ interface RegisterVars {
   password: string;
 }
 
-const SignIn = ({ onSwitchToLogin }: SignInProps) => {
+const SignIn = ({ onSwitchToLogin, redirectTo }: SignInProps) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -38,13 +39,43 @@ const SignIn = ({ onSwitchToLogin }: SignInProps) => {
   const [error, setError] = useState('');
   const { setPage } = useNavigation();
 
+  const redirectAfterAuth = (accessToken: string, refreshToken: string) => {
+    if (!redirectTo) {
+      return false;
+    }
+
+    try {
+      const url = new URL(redirectTo);
+      const allowed = (import.meta.env.VITE_ALLOWED_AUTH_REDIRECT_ORIGINS ?? '')
+        .split(',')
+        .map((origin: string) => origin.trim())
+        .filter(Boolean);
+      const safeOrigins = new Set([window.location.origin, ...allowed]);
+
+      if (!safeOrigins.has(url.origin)) {
+        return false;
+      }
+
+      url.searchParams.set('accessToken', accessToken);
+      url.searchParams.set('refreshToken', refreshToken);
+      window.location.assign(url.toString());
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   const [register, { loading }] = useMutation<RegisterData, RegisterVars>(REGISTER_MUTATION, {
     onCompleted: (data) => {
       if (data.register.success) {
         // Guardar tokens
         localStorage.setItem('accessToken', data.register.accessToken);
         localStorage.setItem('refreshToken', data.register.refreshToken);
-        
+
+        if (redirectAfterAuth(data.register.accessToken, data.register.refreshToken)) {
+          return;
+        }
+
         // Redirigir al home
         setPage('home');
       } else {

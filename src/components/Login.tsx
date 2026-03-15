@@ -5,6 +5,7 @@ import { useNavigation } from '../context/NavigationContext';
 
 interface LoginProps {
   onSwitchToSignup?: () => void;
+  redirectTo?: string | null;
 }
 
 interface LoginData {
@@ -26,11 +27,37 @@ interface LoginVars {
   password: string;
 }
 
-const Login = ({ onSwitchToSignup }: LoginProps) => {
+const Login = ({ onSwitchToSignup, redirectTo }: LoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { setPage } = useNavigation();
+
+  const redirectAfterAuth = (accessToken: string, refreshToken: string) => {
+    if (!redirectTo) {
+      return false;
+    }
+
+    try {
+      const url = new URL(redirectTo);
+      const allowed = (import.meta.env.VITE_ALLOWED_AUTH_REDIRECT_ORIGINS ?? '')
+        .split(',')
+        .map((origin: string) => origin.trim())
+        .filter(Boolean);
+      const safeOrigins = new Set([window.location.origin, ...allowed]);
+
+      if (!safeOrigins.has(url.origin)) {
+        return false;
+      }
+
+      url.searchParams.set('accessToken', accessToken);
+      url.searchParams.set('refreshToken', refreshToken);
+      window.location.assign(url.toString());
+      return true;
+    } catch {
+      return false;
+    }
+  };
 
   const [login, { loading }] = useMutation<LoginData, LoginVars>(LOGIN_MUTATION, {
     onCompleted: (data) => {
@@ -38,7 +65,11 @@ const Login = ({ onSwitchToSignup }: LoginProps) => {
         // Guardar tokens
         localStorage.setItem('accessToken', data.login.accessToken);
         localStorage.setItem('refreshToken', data.login.refreshToken);
-        
+
+        if (redirectAfterAuth(data.login.accessToken, data.login.refreshToken)) {
+          return;
+        }
+
         // Redirigir al home
         setPage('home');
       } else {

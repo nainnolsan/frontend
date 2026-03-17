@@ -81,12 +81,12 @@ const Navbar = () => {
                 Projects
               </button>
             )}
-            <a 
-              href="#contact" 
+            <button
+              onClick={() => setPage('contact')}
               className="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
             >
               Contact
-            </a>
+            </button>
           </div>
 
           {/* Search + Ask AI - Desktop */}
@@ -181,13 +181,15 @@ const Navbar = () => {
                 Projects
               </button>
             )}
-            <a 
-              href="#contact" 
-              onClick={() => setIsMenuOpen(false)}
-              className="block px-4 py-2 text-sm text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-colors"
+            <button
+              onClick={() => {
+                setPage('contact');
+                setIsMenuOpen(false);
+              }}
+              className="block w-full px-4 py-2 text-sm text-left text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-colors"
             >
               Contact
-            </a>
+            </button>
             <button
               type="button"
               onClick={() => {

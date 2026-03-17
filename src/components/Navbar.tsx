@@ -54,9 +54,14 @@ const Navbar = () => {
           {/* Logo */}
           <button
             onClick={() => setPage('home')}
-            className="text-xl font-bold text-black dark:text-white hover:opacity-70 transition-opacity"
+            className="hover:opacity-70 transition-opacity"
+            aria-label="Go to home"
           >
-            Nain.
+            <img
+              src="/Logo.svg"
+              alt="Nain logo"
+              className="h-8 w-auto brightness-0 dark:brightness-0 dark:invert"
+            />
           </button>
 
           {/* Links - Desktop */}

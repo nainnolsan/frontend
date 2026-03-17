@@ -7,7 +7,11 @@ const Footer = () => {
           
           {/* Logo & Description */}
           <div className="text-center">
-            <div className="text-2xl font-bold text-black dark:text-white mb-2">Nain Nolasco</div>
+            <img
+              src="/Logo.svg"
+              alt="Nain logo"
+              className="h-12 w-auto mx-auto mb-2 brightness-0 dark:brightness-0 dark:invert"
+            />
             <p className="text-gray-600 dark:text-gray-400 text-sm">AI-Enhanced Full Stack Developer</p>
           </div>
           
